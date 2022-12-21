@@ -1,0 +1,10 @@
+D:\Code\sgu\MarioGame\Entities\bin\Debug\netcoreapp3.1\Entities.deps.json
+D:\Code\sgu\MarioGame\Entities\bin\Debug\netcoreapp3.1\Entities.dll
+D:\Code\sgu\MarioGame\Entities\bin\Debug\netcoreapp3.1\Entities.pdb
+D:\Code\sgu\MarioGame\Entities\obj\Debug\netcoreapp3.1\Entities.csproj.AssemblyReference.cache
+D:\Code\sgu\MarioGame\Entities\obj\Debug\netcoreapp3.1\Entities.GeneratedMSBuildEditorConfig.editorconfig
+D:\Code\sgu\MarioGame\Entities\obj\Debug\netcoreapp3.1\Entities.AssemblyInfoInputs.cache
+D:\Code\sgu\MarioGame\Entities\obj\Debug\netcoreapp3.1\Entities.AssemblyInfo.cs
+D:\Code\sgu\MarioGame\Entities\obj\Debug\netcoreapp3.1\Entities.csproj.CoreCompileInputs.cache
+D:\Code\sgu\MarioGame\Entities\obj\Debug\netcoreapp3.1\Entities.dll
+D:\Code\sgu\MarioGame\Entities\obj\Debug\netcoreapp3.1\Entities.pdb

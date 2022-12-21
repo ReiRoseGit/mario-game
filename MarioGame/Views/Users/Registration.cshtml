@@ -1,0 +1,29 @@
+﻿@model MarioGame.Models.Users.RegistrationModel
+
+<h1 class="title">
+    Регистрация нового пользователя
+</h1>
+
+<form asp-controller="Users" asp-action="Registration" asp-antiforgery="true" method="post" class="form registration-form">
+    <div class="form-item">
+        <label class="form-label">Ваше имя</label>
+        <input class="form-input" asp-for="Name" placeholder="Введите ваше имя:" />
+        <span class="form-span" asp-validation-for="Name"></span>
+    </div>
+    
+    
+    <div class="form-item">
+        <label class="form-label">Логин</label>
+        <input class="form-input" asp-for="Login" placeholder="Введите логин:" />
+        <span class="form-span" asp-validation-for="Login"></span>
+    </div>
+    
+    <div class="form-item">
+        <label class="form-label">Пароль</label>
+        <input class="form-input" asp-for="Password" placeholder="Введите пароль:" />
+        <span class="form-span" asp-validation-for="Password"></span>
+    </div>
+    
+
+    <button class="form-btn" type="submit">Зарегистрироваться</button>
+</form>

@@ -1,0 +1,13 @@
+D:\Code\sgu\MarioGame\Interfaces\bin\Debug\netcoreapp3.1\Interfaces.deps.json
+D:\Code\sgu\MarioGame\Interfaces\bin\Debug\netcoreapp3.1\Interfaces.dll
+D:\Code\sgu\MarioGame\Interfaces\bin\Debug\netcoreapp3.1\Interfaces.pdb
+D:\Code\sgu\MarioGame\Interfaces\bin\Debug\netcoreapp3.1\Entities.dll
+D:\Code\sgu\MarioGame\Interfaces\bin\Debug\netcoreapp3.1\Entities.pdb
+D:\Code\sgu\MarioGame\Interfaces\obj\Debug\netcoreapp3.1\Interfaces.csproj.AssemblyReference.cache
+D:\Code\sgu\MarioGame\Interfaces\obj\Debug\netcoreapp3.1\Interfaces.GeneratedMSBuildEditorConfig.editorconfig
+D:\Code\sgu\MarioGame\Interfaces\obj\Debug\netcoreapp3.1\Interfaces.AssemblyInfoInputs.cache
+D:\Code\sgu\MarioGame\Interfaces\obj\Debug\netcoreapp3.1\Interfaces.AssemblyInfo.cs
+D:\Code\sgu\MarioGame\Interfaces\obj\Debug\netcoreapp3.1\Interfaces.csproj.CoreCompileInputs.cache
+D:\Code\sgu\MarioGame\Interfaces\obj\Debug\netcoreapp3.1\Interfaces.csproj.CopyComplete
+D:\Code\sgu\MarioGame\Interfaces\obj\Debug\netcoreapp3.1\Interfaces.dll
+D:\Code\sgu\MarioGame\Interfaces\obj\Debug\netcoreapp3.1\Interfaces.pdb

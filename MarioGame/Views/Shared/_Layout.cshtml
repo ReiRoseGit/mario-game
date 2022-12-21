@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/registration.css" />
+</head>
+<body>
+    <div class="content">
+        <header class=" header">
+            <nav class="nav">
+                <div class="nav__logo nav-item">
+                    <a class="logo--link" asp-controller="Home" asp-action="Index">Mario Game</a>
+                </div>
+                <div class="nav__links nav-item">
+                    <a class="nav__links-item" asp-controller="About" asp-action="Index">Об игре</a>
+                    <a class="nav__links-item" asp-controller="Home" asp-action="StartGame">Игра</a>
+                </div>
+                <div class="nav__actions nav-item">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <span class="nav__links-span">Привет, @User.Identity.Name!</span>
+                        <a class="nav__links-item" asp-controller="Users" asp-action="Logout">Выйти</a>
+                    }
+                    else
+                    {
+                        <a class="nav__links-item" asp-controller="Users" asp-action="Registration">Регистрация</a>
+                        <a class="nav__links-item" asp-controller="Users" asp-action="Login">Войти</a>
+                    }
+                </div>
+
+            </nav>
+        </header>
+        <div class="main">
+            <main>
+                @RenderBody()
+            </main>
+        </div>
+
+        <footer class="border-top footer text-muted">
+            <div class="footer-text">
+                Shepovalov Daniil, 2022, Saratov State University
+            </div>
+        </footer>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
