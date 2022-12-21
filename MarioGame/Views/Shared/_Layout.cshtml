@@ -22,6 +22,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <span class="nav__links-span">Привет, @User.Identity.Name!</span>
+                        <span class="nav__links-item">|</span>
                         <a class="nav__links-item" asp-controller="Users" asp-action="Logout">Выйти</a>
                     }
                     else
