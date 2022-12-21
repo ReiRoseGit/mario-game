@@ -1,22 +1,152 @@
-import { Player } from './Player.js'
-import { c, createImage, enemy } from './Common.js'
-import { Platform } from './Platform.js'
-import { GenericObject } from './GenericObject.js'
-import { Enemy } from './Enemy.js'
-import { Health } from './Health.js'
+let maxScore = 0
+const background = new Image()
+background.src = '/images/background.jpg'
+
+const mario = new Image()
+mario.src = '/images/mario.png'
+
+const gravity = 1.0
+
+const canvas = document.getElementById('canvas')
+const c = canvas.getContext('2d')
+
+function createImage(imageSrc) {
+    const image = new Image()
+    image.src = imageSrc
+    return image
+}
+
+const enemy = new Image()
+enemy.src = '/images/enemy.png'
+
+class GenericObject {
+    constructor({ x, y, image, c }) {
+        this.position = {
+            x: x,
+            y: y,
+        }
+        this.c = c
+        this.image = image
+        this.width = image.width
+        this.height = image.height
+    }
+
+    draw() {
+        this.c.drawImage(this.image, this.position.x, this.position.y)
+    }
+}
+class Enemy {
+    constructor({ x, y, image, c }) {
+        this.startPosition = {
+            x,
+            y,
+        }
+        this.position = {
+            x,
+            y,
+        }
+        this.image = image
+        this.width = image.width
+        this.height = image.height
+        this.speed = -2
+        this.c = c
+        this.maxPosition = image.width + 100
+        this.currentStep = 0
+        this.currentWay = 1
+    }
+
+    draw() {
+        this.c.drawImage(this.image, this.position.x, this.position.y)
+    }
+
+    update() {
+        this.draw()
+
+        this.currentStep += this.currentWay
+        this.position.x -= this.speed * this.currentWay
+        if (this.currentStep == this.maxPosition) {
+            this.currentWay = -1
+        }
+        if (this.currentStep == 0) {
+            this.currentWay = 1
+        }
+    }
+}
+
+class Health {
+    constructor({ x, y, image, c }) {
+        this.position = {
+            x,
+            y,
+        }
+        this.image = image
+        this.c = c
+    }
+
+    draw() {
+        this.c.drawImage(this.image, this.position.x, this.position.y)
+    }
+}
+
+class Platform {
+    constructor({ x, y, image, c }) {
+        this.position = {
+            x: x,
+            y: y,
+        }
+        this.c = c
+        this.image = image
+        this.width = image.width
+        this.height = image.height
+    }
+
+    draw() {
+        this.c.drawImage(this.image, this.position.x, this.position.y)
+    }
+}
+class Player {
+    constructor(c) {
+        this.position = {
+            x: 100,
+            y: 100,
+        }
+        this.velocity = {
+            x: 0,
+            y: 0,
+        }
+        this.width = 60
+        this.height = 60
+        this.speed = 7
+        this.image = mario
+        this.c = c
+    }
+
+    draw() {
+        this.c.drawImage(this.image, this.position.x, this.position.y)
+    }
+
+    update() {
+        this.draw()
+        this.position.x += this.velocity.x
+        this.position.y += this.velocity.y
+
+        if (this.position.y + this.height + this.velocity.y <= canvas.height)
+            this.velocity.y += gravity
+    }
+}
 
 const padBetweenPlatforms = 5
 
-export class Game {
+class Game {
     constructor() {
         this.player = new Player(c)
-        this.platformImage = createImage('../images/platform.png')
+        this.platformImage = createImage('/images/platform.png')
         this.platforms = []
         this.genericObjects = []
         this.enemies = []
         this.isJumped = false
         this.isGameEnded = false
-        this.health = 4
+        this.health = 3
 
         this.keys = {
             right: {
@@ -37,7 +167,7 @@ export class Game {
 
     init() {
         // Количество жизней
-        const h = createImage('../images/health.png')
+        const h = createImage('/images/health.png')
         this.countOfHealth = []
         for (let i = 0; i < this.health; i++) {
             this.countOfHealth.push(
@@ -50,7 +180,7 @@ export class Game {
             )
         }
         this.player = new Player(c)
-        this.platformImage = createImage('../images/platform.png')
+        this.platformImage = createImage('/images/platform.png')
         this.platforms = [
             // Добавляем платформы, на которые можно прыгать
             new Platform({
@@ -234,13 +364,13 @@ export class Game {
             new GenericObject({
                 x: 0,
                 y: -665,
-                image: createImage('./images/background.jpg'),
+                image: createImage('/images/background.jpg'),
                 c: c,
             }),
         ]
 
         // Враг
-        const e = createImage('./images/enemy.png')
+        const e = createImage('/images/enemy.png')
 
         // Добавляем движущихся врагов
         this.enemies = [
@@ -316,13 +446,21 @@ export class Game {
 
     // Главная функция анимации
     animate() {
+        if (maxScore < this.scrollOffset) {
+            console.log(maxScore, this.scrollOffset)
+            maxScore = this.scrollOffset
+        }
+        // Условие победы
         if (this.isGameEnded && this.player.position.y >= 475) {
-            const canvas = document.getElementById('canvas')
-            canvas.style.display = 'none'
-
-            const victoryModal = document.getElementById('victory__modal')
-            victoryModal.style.display = 'flex'
+            maxScore = 7900
+            winGameHandler()
             return
+            //const canvas = document.getElementById('canvas')
+            //canvas.style.display = 'none'
+
+            //const victoryModal = document.getElementById('victory__modal')
+            //victoryModal.style.display = 'flex'
+            //return
         }
         window.requestAnimationFrame(this.animate)
         c.fillStyle = 'white'
@@ -392,13 +530,13 @@ export class Game {
         this.platforms.forEach((platform) => {
             if (
                 this.player.position.y + this.player.height <=
-                    platform.position.y &&
+                platform.position.y &&
                 this.player.position.y +
-                    this.player.height +
-                    this.player.velocity.y >=
-                    platform.position.y &&
+                this.player.height +
+                this.player.velocity.y >=
+                platform.position.y &&
                 this.player.position.x + this.player.width >=
-                    platform.position.x &&
+                platform.position.x &&
                 this.player.position.x <= platform.position.x + platform.width
             ) {
                 this.player.velocity.y = 0
@@ -468,16 +606,49 @@ export class Game {
     // Обработка смерти игрока
     loseGame() {
         if (this.health > 0) {
+
+            if (maxScore < this.scrollOffset) maxScore = this.scrollOffset
             this.init()
         } else {
-            if (this.health == 0) {
-                const canvas = document.getElementById('canvas')
-                canvas.style.display = 'none'
 
-                const loseModal = document.getElementById('lose__modal')
-                loseModal.style.display = 'flex'
+            // Условие поражения
+            if (this.health == 0) {
+                //const canvas = document.getElementById('canvas')
+                //canvas.style.display = 'none'
+
+                //const loseModal = document.getElementById('lose__modal')
+                //loseModal.style.display = 'flex'
+                loseGameHandler()
+                console.log("Поражение")
                 return
             }
         }
     }
+}
+
+function startGame() {
+    const game = new Game()
+    game.init()
+    game.atachEvents()
+    game.animate()
+}
+document.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('canvas')
+
+    canvas.width = 1024
+    canvas.height = 576
+
+    startGame()
+})
+
+function winGameHandler() {
+    $.post('WinGame', { score: maxScore }, function () {
+        location.href = '/Home/WinGame';
+    });
+}
+
+function loseGameHandler() {
+    $.post('LoseGame', { score: maxScore }, function () {
+        location.href = '/Home/LoseGame';
+    });
 }
